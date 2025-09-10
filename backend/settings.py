@@ -29,7 +29,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'change-me')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
-ALLOWED_HOSTS = ['https://min-ajlak.onrender.com']
+ALLOWED_HOSTS = ['min-ajlak.onrender.com']
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOWED_ORIGINS = ['https://min-ajlak.onrender.com']
 
