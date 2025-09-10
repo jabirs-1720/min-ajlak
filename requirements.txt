@@ -1,0 +1,9 @@
+django
+pillow
+djangorestframework
+djangorestframework-simplejwt
+django-cors-headers
+django-rosetta
+python-dotenv
+channels[daphne]
+channels-redis
