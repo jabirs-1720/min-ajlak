@@ -6,10 +6,7 @@ from .views import Meals
 
 app_name = 'items'
 
-# router = DefaultRouter()
-# router.register('', Meals, 'meals')
+router = DefaultRouter()
+router.register('', Meals, 'meals')
 
-# urlpatterns = router.urls
-urlpatterns = [
-    path('', Meals.as_view(), name='meals')
-]
+urlpatterns = router.urls

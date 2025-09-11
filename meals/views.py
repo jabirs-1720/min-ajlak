@@ -1,17 +1,20 @@
 from django.shortcuts import render
 
 from django_filters.rest_framework import DjangoFilterBackend
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import DjangoModelPermissionsOrAnonReadOnly
 from rest_framework.viewsets import ModelViewSet
-from rest_framework.generics import ListAPIView
 
 from .models import Meal
+from .permissions import IsMealRestaurantOwner
 from .serializers import MealSerializer
 
 # Create your views here.
 
-class Meals(ListAPIView):
-    permission_classes = [AllowAny]
+class Meals(ModelViewSet):
+    permission_classes = [
+        DjangoModelPermissionsOrAnonReadOnly,
+        IsMealRestaurantOwner
+    ]
     queryset = Meal.objects.all()
     serializer_class = MealSerializer
 
