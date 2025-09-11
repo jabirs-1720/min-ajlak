@@ -7,3 +7,4 @@ django-rosetta
 python-dotenv
 channels[daphne]
 channels-redis
+django-filter
