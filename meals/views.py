@@ -11,10 +11,7 @@ from .serializers import MealSerializer
 # Create your views here.
 
 class Meals(ModelViewSet):
-    permission_classes = [
-        DjangoModelPermissionsOrAnonReadOnly,
-        IsMealRestaurantOwner
-    ]
+    permission_classes = [IsMealRestaurantOwner]
     queryset = Meal.objects.all()
     serializer_class = MealSerializer
 
