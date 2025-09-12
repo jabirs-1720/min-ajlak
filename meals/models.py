@@ -24,6 +24,10 @@ class Meal(models.Model):
         default=7,
         validators=[MinValueValidator(7)]
     )
+    image = models.ImageField(
+        _('image'),
+        upload_to='meals/'
+    )
 
     def __str__(self):
         return self.name
