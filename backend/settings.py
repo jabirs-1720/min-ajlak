@@ -47,7 +47,6 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'corsheaders',
-    'rosetta',
     'django_filters',
 
     # Apps
@@ -60,7 +59,6 @@ MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -80,7 +78,6 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.template.context_processors.i18n',
             ],
         },
     },
@@ -131,14 +128,13 @@ REST_FRAMEWORK = {
 }
 
 CSRF_SECURE = False # Note!, make it true in production
-SESSION_COOKIE_SECURE = False # Note!, make it true in production
-
 CSRF_TRUSTED_ORIGINS = ['https://min-ajlak.onrender.com']
+SESSION_COOKIE_SECURE = False # Note!, make it true in production
 
 AUTH_USER_MODEL = 'authentication.User'
 
 AUTHENTICATION_BACKENDS = [
-    'authentication.backends.EmailPhoneNumberBackend',
+    'authentication.backends.EmailBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
 
@@ -154,22 +150,13 @@ CHANNEL_LAYERS = {
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
-LANGUAGES = [
-    ('en', 'English'),
-    ('ar', 'Arabic'),
-]
-
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'ar'
 
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
 USE_TZ = True
-
-LOCALE_PATHS = [
-    os.path.join(BASE_DIR, 'locale')
-]
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
