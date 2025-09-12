@@ -28,7 +28,6 @@ class OptionGroupSerializer(serializers.ModelSerializer):
         instance.allow_multiple = validated_data.get('allow_multiple', instance.allow_multiple)
         instance.save()
 
-        # تحديث الخيارات (تقدر تخليها logic أوضح حسب الحاجة)
         instance.options.all().delete()
         for option_data in options_data:
             Option.objects.create(group=instance, **option_data)
@@ -36,14 +35,14 @@ class OptionGroupSerializer(serializers.ModelSerializer):
 
 class MealSerializer(serializers.ModelSerializer):
     restaurant = serializers.HiddenField(default=DefaultRestaurant())
-    option_groups = OptionGroupSerializer(many=True)
+    option_groups = OptionGroupSerializer(many=True, required=False)
 
     class Meta:
         model = Meal
-        fields = ['id', 'restaurant', 'name', 'base_price', 'preparation_time', 'option_groups']
+        fields = ['id', 'restaurant', 'name', 'image', 'base_price', 'preparation_time', 'option_groups']
 
     def create(self, validated_data):
-        groups_data = validated_data.pop('option_groups')
+        groups_data = validated_data.pop('option_groups', [])
         meal = Meal.objects.create(**validated_data)
         for group_data in groups_data:
             options_data = group_data.pop('options')
@@ -53,13 +52,12 @@ class MealSerializer(serializers.ModelSerializer):
         return meal
 
     def update(self, instance, validated_data):
-        groups_data = validated_data.pop('option_groups')
+        groups_data = validated_data.pop('option_groups', [])
         instance.name = validated_data.get('name', instance.name)
         instance.base_price = validated_data.get('base_price', instance.base_price)
         instance.preparation_time = validated_data.get('preparation_time', instance.preparation_time)
         instance.save()
 
-        # نفس الفكرة: تحديث الـ groups والـ options
         instance.option_groups.all().delete()
         for group_data in groups_data:
             options_data = group_data.pop('options')
